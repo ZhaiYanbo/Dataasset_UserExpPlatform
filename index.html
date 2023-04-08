@@ -1,0 +1,107 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+
+  <!-- vue -->
+  <script src="./utils/vue@3.2.31.global.js"></script>
+
+  <!-- antd -->
+  <script src="./utils/dayjs.min.js"></script>
+  <link href="./utils/ant-design-vue@3.1.1.min.css" rel="stylesheet" />
+  <script src="./utils/ant-design-vue@3.1.1.min.js"></script>
+
+    <!-- d3  -->
+  <script src="./utils/d3.v7.min.js"></script>
+  <script src="./utils/d3-force-reuse.js"></script>
+
+<!--    <link rel="stylesheet" href="./utils/element.css">-->
+<!--    <script src="./utils/element.js"></script>-->
+
+  <!-- css -->
+  <link rel="stylesheet" href="./src/index.css" />
+
+</head>
+
+<body>
+  <div id="app">
+    <!-- 顶部标题 -->
+    <div class="title-container">
+      <span class="system-title">数据血缘图可视化平台</span>
+    </div>
+
+    <!-- 工具栏 -->
+    <div class="control-container">
+      <div class="row-container">
+        <span class="tool-name">数据集</span>
+        <a-select class="dataset-select" v-model:value="dataset" :options="datasetList" @change="changeDataset">
+        </a-select>
+<!--        <span class="tool-name">高亮数据表集合</span>-->
+<!--        <select v-model="curHighlightDataset">-->
+<!--          <option v-for="(highlightFilename, index) in highlightList" :key="index">{{highlightFilename}}</option>-->
+<!--        </select>-->
+
+
+
+
+<!--        <span class="tool-name">动画渲染模式</span>-->
+<!--        <a-switch v-model:checked="openRenderAnimation" @change="switchRenderAnimation"></a-switch>-->
+
+        <!-- <span class="tool-name">
+            <a-button @click="autoZoom">视图自动缩放居中</a-button>
+          </span> -->
+      </div>
+      <div class="row-container" style="display:none">
+<!--        <span class="tool-name">点边过滤模式</span>-->
+<!--        <a-radio-group v-model:value="filterMethod">-->
+<!--          <a-radio v-for="item in filterMethodList" :key="item" :value="item.value">-->
+<!--            {{item.label}}-->
+<!--          </a-radio>-->
+<!--        </a-radio-group>-->
+<!--        <span class="tool-name">节点过滤类型</span>-->
+<!--        <a-select class="node-filter-select" v-model:value="nodeFilter" mode="multiple" :disabled="filterMethod===''"-->
+<!--          max-tag-count="responsive" placeholder="请选择待过滤的节点类型" :options="nodeTypeNameList"></a-select>-->
+<!--        <span class="tool-name">连边过滤类型</span>-->
+<!--        <a-select class="edge-filter-select" v-model:value="edgeFilter" mode="multiple" :disabled="filterMethod===''"-->
+<!--          max-tag-count="responsive" placeholder="请选择待过滤的连边类型" :options="edgeTypeNameList"></a-select>-->
+<!--        <a-button class="filter-button" @click="changeFilter">run</a-button>-->
+        <button id="pathExplore" >开启路径探索</button>
+<!--        <button id="highlightSrcTable" @click="highlightSrcHandler">{{highlightSrcTable ? '取消': ''}}高亮源数据表</button>-->
+<!--        <button id="highlightDstTable" @click="highlightDstHandler">{{highlightDstTable ? '取消': ''}}高亮目标数据表</button>-->
+<!--        <button id="highlightMidTable" @click="highlightMidHandler">{{highlightMidTable ? '取消': ''}}高亮过渡数据表</button>-->
+
+      </div>
+    </div>
+    <!-- 图谱容器 -->
+    <div class="graph-container" id="graph-container" >
+        <!--        高亮的数据表列表-->
+        <div class="show-list">
+            <a-button type="primary" @click="saveList">保存所选择的重要数据表</a-button>
+            <a-table :data-source="showList" :columns="columns" :scroll="{ y: 240 }" :pagination="false"/>
+        </div>
+
+        <div class="graphInfos-container">
+        Nodes:{{ curNodesNum }}, Edges:{{ curEdgesNum }}
+        <p v-show="filterMethod==='delete'">
+          过滤点边规模 Nodes:{{originalGraph.nodeNum-curNodesNum}},
+          Edges:{{originalGraph.edgeNum-curEdgesNum}}
+        </p>
+      </div>
+
+
+      <div class="legend-container" id="legend-container">
+        <p class="legend-container-title">图例</p>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script type="module" src="./src/index.js"></script>
+
+</body>
+
+</html>
